@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Year</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/8983/8983117.png" type="image/x-icon">
+    <style>
+        /* Custom Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Go to Top Button */
+        #go-to-top {
+            transition: opacity 0.3s;
+        }
+
+        /* Accordion Icons Rotation */
+        .accordion-button.open .fa-chevron-down {
+            transform: rotate(180deg);
+            transition: transform 0.3s;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gradient-to-r from-teal-500 to-blue-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <i class="fas fa-book-open fa-lg mr-2"></i>
+                    <span class="font-bold text-2xl">BookStore</span>
+                </div>
+                <!-- Navigation Links -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html#home" class="hover:text-gray-200 transition duration-300">Home</a>
+                    <a href="index.html#books" class="hover:text-gray-200 transition duration-300">Books</a>
+                    <a href="index.html#video-collection" class="hover:text-gray-200 transition duration-300">Video Collection</a>
+                    <a href="#test-series" class="hover:text-gray-200 transition duration-300">Test Series</a>
+                    <a href="index.html#about" class="hover:text-gray-200 transition duration-300">About</a>
+                    <a href="index.html#author" class="hover:text-gray-200 transition duration-300">Author</a>
+                    <button id="open-contact-modal" class="hover:text-gray-200 transition duration-300 focus:outline-none">Contact</button>
+                    <button id="login-btn" class="ml-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-300">Login</button>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-700">
+            <a href="index.html#home" class="block px-4 py-2 text-white hover:bg-blue-800">Home</a>
+            <a href="index.html#books" class="block px-4 py-2 text-white hover:bg-blue-800">Books</a>
+            <a href="index.html#video-collection" class="block px-4 py-2 text-white hover:bg-blue-800">Video Collection</a>
+            <a href="#test-series" class="block px-4 py-2 text-white hover:bg-blue-800">Test Series</a>
+            <a href="index.html#about" class="block px-4 py-2 text-white hover:bg-blue-800">About</a>
+            <a href="index.html#author" class="block px-4 py-2 text-white hover:bg-blue-800">Author</a>
+            <button id="open-mobile-contact-modal" class="block w-full text-left px-4 py-2 text-white hover:bg-blue-800 focus:outline-none">Contact</button>
+            <button id="mobile-login-btn" class="w-full text-left bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md mt-2">Login</button>
+        </div>
+    </nav>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-lg mx-4">
+            <div class="flex justify-between items-center px-6 py-4 border-b">
+                <h3 class="text-2xl font-semibold text-gray-800">Contact Us</h3>
+                <button id="close-contact-modal" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                    <i class="fas fa-times fa-lg"></i>
+                </button>
+            </div>
+            <form action="https://formspree.io/f/your-form-id" method="POST" class="px-6 py-4">
+                <div class="mb-4">
+                    <label for="contact-name" class="block text-gray-700">Name</label>
+                    <input type="text" id="contact-name" name="name" class="w-full mt-2 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Your Name" required>
+                </div>
+                <div class="mb-4">
+                    <label for="contact-email" class="block text-gray-700">Email</label>
+                    <input type="email" id="contact-email" name="_replyto" class="w-full mt-2 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Your Email" required>
+                </div>
+                <div class="mb-4">
+                    <label for="contact-message" class="block text-gray-700">Message</label>
+                    <textarea id="contact-message" name="message" rows="5" class="w-full mt-2 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="w-full bg-teal-500 text-white py-3 rounded-md hover:bg-teal-600 transition duration-300">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
+            <div class="flex justify-between items-center px-6 py-4 border-b">
+                <h3 class="text-2xl font-semibold text-gray-800">Login</h3>
+                <button id="close-login-modal" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                    <i class="fas fa-times fa-lg"></i>
+                </button>
+            </div>
+            <form action="https://formspree.io/f/your-login-form-id" method="POST" class="px-6 py-4">
+                <div class="mb-4">
+                    <label for="login-email" class="block text-gray-700">Email</label>
+                    <input type="email" id="login-email" name="email" class="w-full mt-2 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Your Email" required>
+                </div>
+                <div class="mb-4">
+                    <label for="login-password" class="block text-gray-700">Password</label>
+                    <input type="password" id="login-password" name="password" class="w-full mt-2 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Your Password" required>
+                </div>
+                <button type="submit" class="w-full bg-teal-500 text-white py-3 rounded-md hover:bg-teal-600 transition duration-300">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Test Series Section -->
+        <section id="test-series" class="py-12 bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fadeIn">
+                <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">First Year Quantum Series</h2>
+                <div class="space-y-6">
+                    <!-- Test Series Module 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <button class="w-full px-6 py-4 text-left text-2xl font-semibold text-gray-800 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 accordion-button">
+                            FIRST SEMESTER
+                            <i class="fas fa-chevron-down float-right"></i>
+                        </button>
+                        <div class="px-6 py-4 hidden">
+                          <section id="books" class="py-12 bg-gray-100">
+                            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fadeIn">
+                                <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">Book Collection</h2>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                                    <!-- Book Card 1 -->
+                                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                        <img src="https://ahooza.com/wp-content/uploads/2023/10/9-9.webp" alt="Book Cover" class="w-full h-48 object-cover">
+                                        <div class="p-4">
+                                            <h3 class="text-2xl font-semibold text-gray-800">Data Structure</h3>
+                                            <p class="text-gray-600 mt-2">BCS301</p>
+                                            <a href="https://drive.google.com/file/d/1FTtFXdIuDAcPpZCquIditQ0tRX0TeDr0/view?usp=sharing" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                                <i class="fas fa-download mr-2"></i> Download PDF
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Book Card 2 -->
+                                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                        <img src="https://www.shutterstock.com/image-photo/setif-algeria-october-24-2021-260nw-2330588989.jpg" alt="Book Cover" class="w-full h-48 object-cover">
+                                        <div class="p-4">
+                                            <h3 class="text-2xl font-semibold text-gray-800">Theory of Automata and Formal Languages</h3>
+                                            <p class="text-gray-600 mt-2">BCS402</p>
+                                            <a href="https://drive.google.com/file/d/1Ug_IDw4h9FETuFNocq9RhKS707gV6M9M/view?usp=sharing" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                                <i class="fas fa-download mr-2"></i> Download PDF
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Book Card 3 -->
+                                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                        <img src="https://images.unsplash.com/photo-1620313925071-c14400e4f548?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fHw%3D" alt="Book Cover" class="w-full h-48 object-cover">
+                                        <div class="p-4">
+                                            <h3 class="text-2xl font-semibold text-gray-800">Computer Organization and Architecture Lab</h3>
+                                            <p class="text-gray-600 mt-2">BCS352e</p>
+                                            <a href="https://drive.google.com/file/d/1TyHajTWXbU4beg6rJYjgqE6_DBT0bni-/view?usp=sharing" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                                <i class="fas fa-download mr-2"></i> Download PDF
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Add more book cards as needed -->
+                
+                                    <!-- Book Card 1 -->
+                                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                      <img src="https://www.shutterstock.com/image-photo/setif-algeria-october-24-2021-260nw-2330588989.jpg" alt="Book Cover" class="w-full h-48 object-cover">
+                                      <div class="p-4">
+                                          <h3 class="text-2xl font-semibold text-gray-800">Technical Communication</h3>
+                                          <p class="text-gray-600 mt-2">BAS301</p>
+                                          <a href="https://drive.google.com/file/d/14I-Rj5Lcc0Y-2RIS8MSX3n7K80ZmEoGw/view?usp=sharing" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                              <i class="fas fa-download mr-2"></i> Download PDF
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- Book Card 2 -->
+                                  <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                      <img src="https://images.unsplash.com/photo-1620313925071-c14400e4f548?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fHw%3D" alt="Book Cover" class="w-full h-48 object-cover">
+                                      <div class="p-4">
+                                          <h3 class="text-2xl font-semibold text-gray-800">Operating System</h3>
+                                          <p class="text-gray-600 mt-2">BCS401</p>
+                                          <a href="https://drive.google.com/file/d/1lBWvML4742qg-T2lkKdQ01SgNsrVYDhQ/view?usp=sharing" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                              <i class="fas fa-download mr-2"></i> Download PDF
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- Book Card 3 -->
+                                  <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                      <img src="https://images.unsplash.com/photo-1620313925071-c14400e4f548?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fHw%3D" alt="Book Cover" class="w-full h-48 object-cover">
+                                      <div class="p-4">
+                                          <h3 class="text-2xl font-semibold text-gray-800">Book Title Three</h3>
+                                          <p class="text-gray-600 mt-2">Author Name</p>
+                                          <a href="#" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                              <i class="fas fa-download mr-2"></i> Download PDF
+                                          </a>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </section>
+                        </div>
+                    </div>                    
+                    <!-- Add Modules 4 to 15 similarly -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <main class="flex-grow">
+        <!-- Test Series Section -->
+        <!-- <section id="test-series" class="py-12 bg-gray-100"> -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fadeIn">
+                
+                <div class="space-y-6">
+                    <!-- Test Series Module 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <button class="w-full px-6 py-4 text-left text-2xl font-semibold text-gray-800 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 accordion-button">
+                            SECOND SEMESTER
+                            <i class="fas fa-chevron-down float-right"></i>
+                        </button>
+                        <div class="px-6 py-4 hidden">
+                          <section id="books" class="py-12 bg-gray-100">
+                            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fadeIn">
+                                <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">Book Collection</h2>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                                    <!-- Book Card 1 -->
+                                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                        <img src="https://undsgn.com/wp-content/uploads/2018/06/xy55bl5mzam.jpg" alt="Book Cover" class="w-full h-48 object-cover">
+                                        <div class="p-4">
+                                            <h3 class="text-2xl font-semibold text-gray-800">Book Title One</h3>
+                                            <p class="text-gray-600 mt-2">Author Name</p>
+                                            <a href="#" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                                <i class="fas fa-download mr-2"></i> Download PDF
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Book Card 2 -->
+                                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                        <img src="https://www.shutterstock.com/image-photo/setif-algeria-october-24-2021-260nw-2330588989.jpg" alt="Book Cover" class="w-full h-48 object-cover">
+                                        <div class="p-4">
+                                            <h3 class="text-2xl font-semibold text-gray-800">Book Title Two</h3>
+                                            <p class="text-gray-600 mt-2">Author Name</p>
+                                            <a href="#" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                                <i class="fas fa-download mr-2"></i> Download PDF
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Book Card 3 -->
+                                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                        <img src="https://images.unsplash.com/photo-1620313925071-c14400e4f548?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fHw%3D" alt="Book Cover" class="w-full h-48 object-cover">
+                                        <div class="p-4">
+                                            <h3 class="text-2xl font-semibold text-gray-800">Book Title Three</h3>
+                                            <p class="text-gray-600 mt-2">Author Name</p>
+                                            <a href="#" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                                <i class="fas fa-download mr-2"></i> Download PDF
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Add more book cards as needed -->
+                
+                                    <!-- Book Card 1 -->
+                                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                      <img src="https://www.shutterstock.com/image-photo/setif-algeria-october-24-2021-260nw-2330588989.jpg" alt="Book Cover" class="w-full h-48 object-cover">
+                                      <div class="p-4">
+                                          <h3 class="text-2xl font-semibold text-gray-800">Book Title four</h3>
+                                          <p class="text-gray-600 mt-2">Author Name</p>
+                                          <a href="#" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                              <i class="fas fa-download mr-2"></i> Download PDF
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- Book Card 2 -->
+                                  <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                      <img src="https://images.unsplash.com/photo-1620313925071-c14400e4f548?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fHw%3D" alt="Book Cover" class="w-full h-48 object-cover">
+                                      <div class="p-4">
+                                          <h3 class="text-2xl font-semibold text-gray-800">Book Title Two</h3>
+                                          <p class="text-gray-600 mt-2">Author Name</p>
+                                          <a href="#" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                              <i class="fas fa-download mr-2"></i> Download PDF
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- Book Card 3 -->
+                                  <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                                      <img src="https://images.unsplash.com/photo-1620313925071-c14400e4f548?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fHw%3D" alt="Book Cover" class="w-full h-48 object-cover">
+                                      <div class="p-4">
+                                          <h3 class="text-2xl font-semibold text-gray-800">Book Title Three</h3>
+                                          <p class="text-gray-600 mt-2">Author Name</p>
+                                          <a href="#" class="mt-4 inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+                                              <i class="fas fa-download mr-2"></i> Download PDF
+                                          </a>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </section>
+                        </div>
+                    </div>                    
+                    <!-- Add Modules 4 to 15 similarly -->
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    
+    
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-teal-500 to-blue-700 text-white">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-center md:text-left">&copy; 2024 Your Bookstore. All rights reserved.</p>
+            <div class="flex space-x-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-gray-300 transition duration-300">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="hover:text-gray-300 transition duration-300">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="hover:text-gray-300 transition duration-300">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="hover:text-gray-300 transition duration-300">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Go to Top Button -->
+    <button id="go-to-top" class="fixed bottom-8 right-8 bg-teal-500 text-white p-3 rounded-full shadow-lg hover:bg-teal-600 transition duration-300 hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Toggle Mobile Menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Open Contact Modal
+        const openContactModalButtons = document.querySelectorAll('#open-contact-modal, #open-mobile-contact-modal');
+        const contactModal = document.getElementById('contact-modal');
+        const closeContactModalButton = document.getElementById('close-contact-modal');
+
+        openContactModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                contactModal.classList.remove('hidden');
+            });
+        });
+
+        // Close Contact Modal
+        closeContactModalButton.addEventListener('click', () => {
+            contactModal.classList.add('hidden');
+        });
+
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', (event) => {
+            if (event.target === contactModal) {
+                contactModal.classList.add('hidden');
+            }
+        });
+
+        // Open Login Modal
+        const loginButtons = document.querySelectorAll('#login-btn, #mobile-login-btn');
+        const loginModal = document.getElementById('login-modal');
+        const closeLoginModalButton = document.getElementById('close-login-modal');
+
+        loginButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                loginModal.classList.remove('hidden');
+            });
+        });
+
+        // Close Login Modal
+        closeLoginModalButton.addEventListener('click', () => {
+            loginModal.classList.add('hidden');
+        });
+
+        // Close login modal when clicking outside the modal content
+        window.addEventListener('click', (event) => {
+            if (event.target === loginModal) {
+                loginModal.classList.add('hidden');
+            }
+        });
+
+        // Close modals with Escape key
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                contactModal.classList.add('hidden');
+                loginModal.classList.add('hidden');
+            }
+        });
+
+        // "Go to Top" Button Functionality
+        const goToTopButton = document.getElementById('go-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                goToTopButton.classList.remove('hidden');
+            } else {
+                goToTopButton.classList.add('hidden');
+            }
+        });
+
+        goToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Accordion Functionality for Test Series Modules
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const isOpen = !content.classList.contains('hidden');
+
+                // Close all accordion contents
+                document.querySelectorAll('.accordion-button + div').forEach(div => div.classList.add('hidden'));
+                document.querySelectorAll('.accordion-button').forEach(btn => btn.classList.remove('open'));
+
+                // Toggle current accordion
+                if (!isOpen) {
+                    content.classList.remove('hidden');
+                    button.classList.add('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
